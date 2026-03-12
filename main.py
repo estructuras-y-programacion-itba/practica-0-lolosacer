@@ -1,9 +1,16 @@
 import random
-def tirada(cant_dados):
-    resultado=[]
-    for i in range(cant_dados):
-        resultado.append(random.randint(1,6))            
-    return resultado
+def inicial():
+    dados=[]
+    for i in range(5):
+        dados.append(random.randint(1,6))
+    return dados
+
+def tirada(dados):
+    respuesta=input("Ingrese 0 si no quiere cambiar el dado, 1 si lo quiere cambiar. Ej; 01001:")
+    for i in range(5):
+        if respuesta[i] == '1':
+            dados[i]=random.randint(1,6)
+    return dados
     
 def numero_elegido(dados, numero):
     suma = 0
@@ -33,26 +40,27 @@ def jugadas(dados):
         return "Full"
     return "Nada"
     
-def puntaje(jugada_detectada, nro_tiro, categoria_elegida, dados):    
-    # 1. Si elige un número (1 al 6)
+def puntaje(jugada_detectada, nro_tiro, categoria_elegida,dados):    
     if categoria_elegida.isdigit() and nro_tiro==3:
         return numero_elegido(dados, int(categoria_elegida))
-    
-    # 2. Si elige una jugada especial
-    if categoria_elegida == "G" and jugada_detectada == "Generala":
+    if jugada_detectada == "Generala":
         return 80 if nro_tiro == 1 else 50
-    
-    if categoria_elegida == "P" and jugada_detectada == "Poker":
+    if jugada_detectada == "Poker":
         return 45 if nro_tiro == 1 else 40
-    
-    if categoria_elegida == "F" and jugada_detectada == "Full":
+    if jugada_detectada == "Full":
         return 35 if nro_tiro == 1 else 30
-    
-    if categoria_elegida == "E" and jugada_detectada == "Escalera":
+    if jugada_detectada == "Escalera":
         return 25 if nro_tiro == 1 else 20
-        
-    # 3. Jugada Obligatoria: Si elige algo que no tiene o no es nada
     return 0
+    
+def turno(nombre):
+    print (f"Turno del jugador:{nombre}")
+    dados=inicial()
+    print(dados)
+    nro_tiro=1
+    while nro_tiro<=3:
+        puntos=puntaje(jugadas(dados),nro_tiro,)
+
     
 
 
